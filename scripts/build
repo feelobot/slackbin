@@ -1,0 +1,11 @@
+docker run --rm -it -v "$PWD":/go/src/github.com/feelobot/slackbin -w /go/src/github.com/feelobot/slackbin/ golang:1.5.0-cross sh -c '
+go get
+for GOOS in darwin linux windows; do
+  for GOARCH in 386 amd64; do
+    echo "Building $GOOS-$GOARCH"
+    export GOOS=$GOOS
+    export GOARCH=$GOARCH
+    go build -o bin/slackbin-$GOOS-$GOARCH
+  done
+done
+'
